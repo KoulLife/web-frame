@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.spring">
+
+    <bean id="catId" class="com.Hansung.assignment.animals.Cat">
+        <qualifier value="qf_cat"/>
+        <property name="myName" value="bella"/>
+    </bean>
+
+    <bean id="dogId" class="com.Hansung.assignment.animals.Dog">
+        <qualifier value="qf_dog"/>
+        <property name="myName" value="lucky"/>
+    </bean>
+
+    <bean id="petOwnerId" class="com.Hansung.assignment.animals.PetOwner">
+        <constructor-arg ref="catId" />
+    </bean>
+
+    <context:annotation-config/>
+</beans>
