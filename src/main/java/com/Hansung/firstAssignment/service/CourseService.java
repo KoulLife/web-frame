@@ -17,4 +17,21 @@ public class CourseService {
   public List<Courses> getAllCourses(){
     return coursesRepository.findAll();
   }
+
+  public List<Courses> getByYearAndSemester(int year, int semester){
+    return coursesRepository.findByYearAndSemester(year, semester);
+  }
+
+  public void addCourse(int y, int s, String cc, String cn, String cf, String p, int gpa){
+    Courses course = new Courses();
+    course.setYear(y);
+    course.setSemester(s);
+    course.setCourseCode(cc);
+    course.setCourseName(cn);
+    course.setCourFilter(cf);
+    course.setProfessor(p);
+    course.setGpa(gpa);
+
+    coursesRepository.save(course);
+  }
 }

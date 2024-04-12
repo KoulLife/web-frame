@@ -1,18 +1,21 @@
 package com.hansung.firstAssignment.controller;
 
+import com.hansung.firstAssignment.dto.CourseDto;
 import com.hansung.firstAssignment.dto.UserDto;
 import com.hansung.firstAssignment.dto.UserLoginDto;
 import com.hansung.firstAssignment.service.CourseService;
 import com.hansung.firstAssignment.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+
 
 //@RestController
 @Controller
@@ -37,11 +40,10 @@ public class MainController {
   }
 
   @PostMapping("/login")
-  public String postLogin(Model model, @Valid UserLoginDto userLoginDto, BindingResult result){
+  public String postLogin(Model model, @Valid UserLoginDto userLoginDto, BindingResult result, HttpSession session){
     if(result.hasErrors()){
       return "login";
     }
-
     return "redirect:/";
   }
 
@@ -74,31 +76,28 @@ public class MainController {
     return "getGPA";
   }
 
-  @GetMapping("/enroll-course")
-  public String getEnrollCourse(){
-    return "enrollCourse";
+  @GetMapping("/gpa-details/{year}/{sem}")
+  public String postGpaDetail(Model model, @PathVariable int year, @PathVariable int sem){
+    model.addAttribute("courses", courseService.getByYearAndSemester(year,sem));
+
+    return "getDetail";
   }
 
   @GetMapping("/view-course")
   public String getViewCourse(){
-    return "viewCourse";
+
+    return "redirect:/gpa-details/2024/2";
   }
 
+  @GetMapping("/enroll-course")
+  public String getEnroll(Model model){
+    model.addAttribute("courseDto", new CourseDto());
 
-
-
-
-
-
-  @GetMapping("/create-user")
-  public String getCreateUser(Model model){
-    model.addAttribute("userDto", new UserDto());
-
-    return "createUser";
+    return "enrollCourse";
   }
 
-  @PostMapping("/create-user")
-  public String postCreateUser(Model model, @Valid UserDto userDto, BindingResult result){
+  @PostMapping("/enroll-course")
+  public String putEnroll(Model model, @Valid CourseDto courseDto, BindingResult result){
     if(result.hasErrors()){
       System.out.println("== Form data does not validated ==");
 
@@ -106,11 +105,21 @@ public class MainController {
       for (ObjectError error : errors){
         System.out.println(error.getDefaultMessage());
       }
-      return "createUser";
+      return "enrollCourse";
     }
 
-    System.out.println(userDto);
+    int year = 2024;
+    int semester = 2;
+    String courseCode = courseDto.getCourseCode();
+    String courseName = courseDto.getCourseName();
+    String courFilter = courseDto.getCourseFilter();
+    String professor = courseDto.getProfessor();
+    int gpa = Integer.parseInt(courseDto.getGpa());
 
-    return "index";
+    System.out.println("GPA RESULT : " + gpa);
+
+    courseService.addCourse(year, semester, courseCode, courseName, courFilter, professor, gpa);
+
+    return "redirect:/";
   }
 }
