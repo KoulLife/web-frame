@@ -1,6 +1,6 @@
-package com.hansung.firstAssignment.repository;
+package com.Hansung.firstAssignment.repository;
 
-import com.hansung.firstAssignment.entity.Courses;
+import com.Hansung.firstAssignment.entity.Courses;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

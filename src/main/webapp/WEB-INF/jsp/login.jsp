@@ -7,22 +7,22 @@
 </head>
 <body>
 <h1>로그인</h1>
-<sf:form method="post" action="${pageContext.request.contextPath}/login" modelAttribute="userLoginDto">
+<sf:form method="post" action="${pageContext.request.contextPath}/login">
   <table class="formtable">
 
     <tr>
       <td class="label">USER NAME</td>
-      <td><sf:input class="control" type="text" path="username"/>
+      <td><input class="control" type="text" name="username"/>
         <br/>
-        <sf:errors path="username"/>
+<%--        <sf:errors path="username"/>--%>
       </td>
     </tr>
 
     <tr>
       <td class="label">PASSWORD</td>
-      <td><sf:input class="control" type="text" path="password"/>
+      <td><input class="control" type="text" name="password"/>
         <br/>
-        <sf:errors path="password"/>
+<%--        <sf:errors path="password"/>--%>
       </td>
     </tr>
 

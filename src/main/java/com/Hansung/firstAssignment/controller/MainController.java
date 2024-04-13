@@ -1,10 +1,12 @@
-package com.hansung.firstAssignment.controller;
+package com.Hansung.firstAssignment.controller;
 
-import com.hansung.firstAssignment.dto.CourseDto;
-import com.hansung.firstAssignment.dto.UserDto;
-import com.hansung.firstAssignment.dto.UserLoginDto;
-import com.hansung.firstAssignment.service.CourseService;
-import com.hansung.firstAssignment.service.UserService;
+
+import com.Hansung.firstAssignment.dto.CourseDto;
+import com.Hansung.firstAssignment.dto.UserDto;
+import com.Hansung.firstAssignment.dto.UserLoginDto;
+import com.Hansung.firstAssignment.service.AuthoritiesService;
+import com.Hansung.firstAssignment.service.CourseService;
+import com.Hansung.firstAssignment.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,12 @@ import java.util.List;
 public class MainController {
   private final UserService userService;
   private final CourseService courseService;
+  private final AuthoritiesService authoritiesService;
 
-  public MainController(UserService userService, CourseService courseService) {
+  public MainController(UserService userService, CourseService courseService, AuthoritiesService authoritiesService) {
     this.userService = userService;
     this.courseService = courseService;
+    this.authoritiesService = authoritiesService;
   }
 
   @GetMapping("/")
@@ -33,13 +37,18 @@ public class MainController {
     return "index";
   }
 
-  @GetMapping("/login")
+  @GetMapping("/user-logout")
+  public String logout(){
+    return "index";
+  }
+
+  @GetMapping("/sign-in")
   public String getLogin(Model model){
     model.addAttribute("userLoginDto", new UserLoginDto());
     return "login";
   }
 
-  @PostMapping("/login")
+  @PostMapping("/sign-in")
   public String postLogin(Model model, @Valid UserLoginDto userLoginDto, BindingResult result, HttpSession session){
     if(result.hasErrors()){
       return "login";
@@ -83,6 +92,7 @@ public class MainController {
     return "getDetail";
   }
 
+
   @GetMapping("/view-course")
   public String getViewCourse(){
 
@@ -121,5 +131,11 @@ public class MainController {
     courseService.addCourse(year, semester, courseCode, courseName, courFilter, professor, gpa);
 
     return "redirect:/";
+  }
+
+  @GetMapping("/test/{username}")
+  @ResponseBody
+  public String test(@PathVariable(name = "username") String username){
+   return authoritiesService.getAuth(username);
   }
 }

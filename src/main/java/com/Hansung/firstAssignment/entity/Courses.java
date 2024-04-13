@@ -1,4 +1,4 @@
-package com.hansung.firstAssignment.entity;
+package com.Hansung.firstAssignment.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

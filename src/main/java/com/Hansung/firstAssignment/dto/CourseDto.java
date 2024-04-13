@@ -1,4 +1,4 @@
-package com.hansung.firstAssignment.dto;
+package com.Hansung.firstAssignment.dto;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;

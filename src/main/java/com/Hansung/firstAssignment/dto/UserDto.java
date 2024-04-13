@@ -1,6 +1,6 @@
-package com.hansung.firstAssignment.dto;
+package com.Hansung.firstAssignment.dto;
 
-import com.hansung.firstAssignment.entity.Users;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;

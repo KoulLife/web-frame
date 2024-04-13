@@ -1,4 +1,4 @@
-package com.hansung.firstAssignment;
+package com.Hansung.firstAssignment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

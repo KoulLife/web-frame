@@ -1,7 +1,7 @@
-package com.hansung.firstAssignment.service;
+package com.Hansung.firstAssignment.service;
 
-import com.hansung.firstAssignment.entity.Courses;
-import com.hansung.firstAssignment.repository.CoursesRepository;
+import com.Hansung.firstAssignment.entity.Courses;
+import com.Hansung.firstAssignment.repository.CoursesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
